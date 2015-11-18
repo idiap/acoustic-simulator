@@ -1,0 +1,72 @@
+This package provides scripts used to degrade audio files and download/install the required data and code. 
+
+===========
+ CONTENTS
+===========
+
+The contents of this package are
+
+  - README : This file
+
+  - README-noise-db.txt : Instructions to download and install noise database
+
+  - README-impulse-responses.txt : Instructions to download and install impulse response database
+
+  - README-codecs.txt : Instructions to download and install audio codecs
+
+  - README-file-lists.txt : Instructions on how to generate dev, train and test data sets for the evaluation of speaker recognition systems on degraded speech. This data set requires access to the NIST Speaker Recognition Evaluation (SRE) 2010 data set.
+
+  - download-noise-db.py : Script for downloading the noise database (see README-noise-db.txt)
+
+  - noise-db.txt : List of noise file ids, tag and license for the noise database
+
+  - freesound.py : Python API to the freesound.org service (online audio repository)
+
+  - prepare-impulse-responses.py : Prepare and normalize impulse the packaged and downloaded impulses
+
+  - impulse-responses-original : Directory containing distributable impulse responses
+
+  - degrade-audio-list-safe-random.py : Degrades an audio file
+
+  - degrade-audio-safe-random.py : Degrades a list of audio files under pre-specified degradation conditions (landline, cellular, satellite, interview, playback) along with noisy variants
+
+  - split-dev-train-test.py : Script to split the generated noise file list into dev, train and test data sets
+
+  - train.list : List of ID, file name and gender for the training data set (taken from the NIST SRE 2010 data) 
+  
+  - test.list : List of ID, file name and gender for the test data set (taken from the NIST SRE 2010 data) 
+
+  - random : List of integer random numbers used to generate random numbers in a reproducible way across machines
+
+=============
+ DESCRIPTION
+=============
+
+This acoustic simulator allows you to degrade clean audio recordings using a variety of algorithms and data. The simulator offers three main types of degradations:
+
+  - Additive noise from a large collection of open-source real noise recordings of around 60 hours. The noise recordings have been manually assigned one out of the following categories: announcement, bable, crowd, impulsive, music, nature, outdoors, private, public, signaling, sport, transportation. The database must be downloaded from the www.freesound.org website using an API. Check the file README-noise-db.txt for details on how to download the data.
+
+  - Open-source impulse responses sampled from real audio devices, loudspeakers, cabinets and smartphones on one side and rooms on the other side. 74 and 54 impulse responses are provided for devices and rooms respectively. The impulse responses are stored in .wav PCM format and have been manually categorized into directories under impulse-response-original. For the simulator to use these impulse responses they must be normalized and downsampled to 8kHz and 16kHz. Check README-impulse-responses.txt to generate these files as well as download missing files that could not be distributed as part of this package.
+
+  - Speech and audio codecs, a total of 14 codecs for cellular and satellite telephony, voice over IP, and audio recorders. For licensing issues, the code for these codecs is not provided in this package, but download URLs together with code changes and compile instruccions are provided in README-codecs.txt . These should be stored the src directory. The supported codecs are ITU G.711, ITU G.726, ITU G.722, ITU G.728, ITU G.729a, ETSI AMR-NB, ETSI AMR-WB, ETSI GSM-FR, CVSD, Codec2, Skype SILK, Skype SILK-WB, Fraunhofer MP3, Fraunhofer AAC. Telephony band-pass filters G.712, P341, IRS and MIRS can be used in combination with narrow band codecs as well.
+
+  - Noise reduction based on Wiener filtering (Qualcomm-ICSI-OGI) and amplitude normalization is also supported
+
+This package also includes a data set based on the NIST SRE 2010 data (not included) for the evaluation of speaker verification systems. Please read README-file-lists.txt for more information about how to corrupt these audio files so that results are comparable across research labs.
+
+=============
+ BUG FIXES
+=============
+
+v0.2:
+
+  - Fixed random number generator to choose from all elements in a list
+
+  - Removed medium sized room impulse responses from interview condition. Only small room IR are now used.
+
+
+=============
+ CONTACT
+=============
+
+  Please report any issues to marc.ferras@idiap.ch .
